@@ -36,6 +36,9 @@ public class GetAllMessagesTest extends ChatappApplicationTests {
         // then
         assertThat(messages).hasSize(5);
 
+        // cleanup
+        messageRepository.deleteAll();
+
     }
 
     private nl.homecooked.chatapp.domain.Message createMessage(String user, String value) {

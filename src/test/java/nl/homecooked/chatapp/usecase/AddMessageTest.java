@@ -17,7 +17,7 @@ public class AddMessageTest extends ChatappApplicationTests {
     private AddMessage addMessage;
 
     @Autowired
-    private MessageRepository repository;
+    private MessageRepository messageRepository;
 
     @Test
     public void givenRequestForNewMessage_thenNewMessageIsCreated() throws Exception {
@@ -28,14 +28,17 @@ public class AddMessageTest extends ChatappApplicationTests {
         addMessage.addMessage(request);
 
         // then
-        assertThat(repository.findAll()).hasSize(1);
-        assertThat(repository.findAll().get(0)).has(new Condition<Message>() {
+        assertThat(messageRepository.findAll()).hasSize(1);
+        assertThat(messageRepository.findAll().get(0)).has(new Condition<Message>() {
             @Override
             public boolean matches(Message message) {
                 return "bas".equals(message.getUser())
                         && "new message".equals(message.getValue());
             }
         });
+
+        // cleanup
+        messageRepository.deleteAll();
 
     }
 }
