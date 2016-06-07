@@ -5,11 +5,12 @@ import nl.homecooked.chatapp.domain.Message;
 import nl.homecooked.chatapp.repository.MessageRepository;
 import nl.homecooked.chatapp.usecase.api.AddMessageRequest;
 import org.assertj.core.api.Condition;
+import org.junit.After;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-
 
 public class AddMessageTest extends ChatappApplicationTests {
 
@@ -18,6 +19,7 @@ public class AddMessageTest extends ChatappApplicationTests {
 
     @Autowired
     private MessageRepository messageRepository;
+
 
     @Test
     public void givenRequestForNewMessage_thenNewMessageIsCreated() throws Exception {
@@ -36,9 +38,6 @@ public class AddMessageTest extends ChatappApplicationTests {
                         && "new message".equals(message.getValue());
             }
         });
-
-        // cleanup
-        messageRepository.deleteAll();
 
     }
 }

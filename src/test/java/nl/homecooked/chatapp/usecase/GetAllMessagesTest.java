@@ -1,10 +1,15 @@
 package nl.homecooked.chatapp.usecase;
 
+import com.sun.org.apache.regexp.internal.RE;
 import nl.homecooked.ChatappApplicationTests;
 import nl.homecooked.chatapp.repository.MessageRepository;
 import nl.homecooked.chatapp.usecase.api.Message;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -19,7 +24,6 @@ public class GetAllMessagesTest extends ChatappApplicationTests {
     @Autowired
     private MessageRepository messageRepository;
 
-
     @Test
     public void given5ChatMessages_thenGetAllMessagesReturnsAllMessages() throws Exception {
         // given
@@ -32,12 +36,8 @@ public class GetAllMessagesTest extends ChatappApplicationTests {
         // when
         Collection<Message> messages = getAllMessages.getAllMessages();
 
-
         // then
         assertThat(messages).hasSize(5);
-
-        // cleanup
-        messageRepository.deleteAll();
 
     }
 
